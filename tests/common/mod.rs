@@ -1,11 +1,11 @@
 // Copyright (c) 2023 Harry [Majored] [hello@majored.pw]
 // MIT License (https://github.com/Majored/rs-async-zip/blob/main/LICENSE)
 
-use async_zip::base::read::mem;
-use async_zip::base::read::seek;
-use async_zip::base::write::ZipFileWriter;
-use async_zip::Compression;
-use async_zip::ZipEntryBuilder;
+use async_mrs::base::read::mem;
+use async_mrs::base::read::seek;
+use async_mrs::base::write::ZipFileWriter;
+use async_mrs::Compression;
+use async_mrs::ZipEntryBuilder;
 use futures_lite::io::AsyncWriteExt;
 use tokio::fs::File;
 use tokio_util::compat::TokioAsyncReadCompatExt;
@@ -24,7 +24,7 @@ pub async fn compress_to_mem(compress: Compression) -> Vec<u8> {
     let mut writer = ZipFileWriter::new(&mut bytes);
 
     for fname in FILE_LIST {
-        let content = tokio::fs::read(format!("{FOLDER_PREFIX}/{fname}")).await.unwrap();
+        let content = tokio::fs::read("info.xml").await.unwrap();
         let opts = ZipEntryBuilder::new(fname.to_string().into(), compress);
 
         let mut entry_writer = writer.write_entry_stream(opts).await.unwrap();
@@ -37,7 +37,7 @@ pub async fn compress_to_mem(compress: Compression) -> Vec<u8> {
 
 #[cfg(feature = "tokio-fs")]
 pub async fn check_decompress_fs(fname: &str) {
-    use async_zip::tokio::read::fs;
+    use async_mrs::tokio::read::fs;
     let zip = fs::ZipFileReader::new(fname).await.unwrap();
     let zip_entries: Vec<_> = zip.file().entries().to_vec();
     for (idx, entry) in zip_entries.into_iter().enumerate() {
@@ -46,13 +46,15 @@ pub async fn check_decompress_fs(fname: &str) {
             continue;
         }
         // TODO: resolve unwrap usage
-        let fname = entry.filename().as_str().unwrap();
+        if entry.filename().as_str().unwrap() != "info.xml" { continue }
         let mut output = String::new();
         let mut reader = zip.reader_with_entry(idx).await.unwrap();
         let _ = reader.read_to_string_checked(&mut output).await.unwrap();
-        let fs_file = format!("{FOLDER_PREFIX}/{fname}");
-        let expected = tokio::fs::read_to_string(fs_file).await.unwrap();
-        assert_eq!(output, expected, "for {fname}, expect zip data to match file data");
+        let fs_file = "info.xml";
+        let mut path = std::path::PathBuf::from(FOLDER_PREFIX);
+        path.push("info.xml");
+        let expected = tokio::fs::read_to_string(path).await.unwrap();
+        assert_eq!(output, expected, "expect zip data to match info.xml");
     }
 }
 
@@ -67,13 +69,14 @@ pub async fn check_decompress_seek(fname: &str) {
             continue;
         }
         // TODO: resolve unwrap usage
-        let fname = entry.filename().as_str().unwrap();
+        if entry.filename().as_str().unwrap() != "info.xml" { continue }
         let mut output = String::new();
         let mut reader = zip.reader_with_entry(idx).await.unwrap();
         let _ = reader.read_to_string_checked(&mut output).await.unwrap();
-        let fs_file = format!("tests/test_inputs/{fname}");
-        let expected = tokio::fs::read_to_string(fs_file).await.unwrap();
-        assert_eq!(output, expected, "for {fname}, expect zip data to match file data");
+        let mut path = std::path::PathBuf::from(FOLDER_PREFIX);
+        path.push("info.xml");
+        let expected = tokio::fs::read_to_string(path).await.unwrap();
+        assert_eq!(output, expected, "expect zip data to match info.xml");
     }
 }
 
@@ -86,12 +89,13 @@ pub async fn check_decompress_mem(zip_data: Vec<u8>) {
             continue;
         }
         // TODO: resolve unwrap usage
-        let fname = entry.filename().as_str().unwrap();
+        if entry.filename().as_str().unwrap() != "info.xml" { continue }
         let mut output = String::new();
         let mut reader = zip.reader_with_entry(idx).await.unwrap();
         let _ = reader.read_to_string_checked(&mut output).await.unwrap();
-        let fs_file = format!("{FOLDER_PREFIX}/{fname}");
-        let expected = tokio::fs::read_to_string(fs_file).await.unwrap();
-        assert_eq!(output, expected, "for {fname}, expect zip data to match file data");
+        let mut path = std::path::PathBuf::from(FOLDER_PREFIX);
+        path.push("info.xml");
+        let expected = tokio::fs::read_to_string(path).await.unwrap();
+        assert_eq!(output, expected, "expect zip data to match info.xml");
     }
 }

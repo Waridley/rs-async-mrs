@@ -11,7 +11,7 @@ use crate::entry::builder::ZipEntryBuilder;
 use crate::error::{Result, ZipError};
 use crate::spec::{
     attribute::AttributeCompatibility,
-    consts::LFH_SIGNATURE,
+    consts::{LFH_SIGNATURE, MR_SIGNATURE},
     header::{ExtraField, LocalFileHeader},
     Compression,
 };
@@ -194,10 +194,14 @@ impl StoredZipEntry {
             u32::from_le_bytes(buffer)
         };
 
-        match signature {
-            LFH_SIGNATURE => (),
-            actual => return Err(ZipError::UnexpectedHeaderError(actual, LFH_SIGNATURE)),
+        let expected = if self.file_offset == 0 {
+            MR_SIGNATURE
+        } else {
+            LFH_SIGNATURE
         };
+        if signature != expected {
+            return Err(ZipError::UnexpectedHeaderError(signature, expected))
+        }
 
         // Skip the local file header and trailing data
         let header = LocalFileHeader::from_reader(&mut reader).await?;

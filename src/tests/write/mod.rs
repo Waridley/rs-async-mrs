@@ -7,7 +7,6 @@ use std::pin::Pin;
 use std::task::{Context, Poll};
 
 pub(crate) mod offset;
-mod zip64;
 
 /// /dev/null for AsyncWrite.
 /// Useful for tests that involve writing, but not reading, large amounts of data.

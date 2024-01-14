@@ -5,8 +5,8 @@
 //!
 //! ### Example
 //! ```no_run
-//! # use async_zip::base::read::seek::ZipFileReader;
-//! # use async_zip::error::Result;
+//! # use async_mrs::base::read::seek::ZipFileReader;
+//! # use async_mrs::error::Result;
 //! # use futures_lite::io::AsyncReadExt;
 //! # use tokio::fs::File;
 //! # use tokio_util::compat::TokioAsyncReadCompatExt;

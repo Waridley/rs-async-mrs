@@ -7,6 +7,7 @@ pub const SIGNATURE_LENGTH: usize = 4;
 //
 // https://github.com/Majored/rs-async-zip/blob/main/SPECIFICATION.md#437
 pub const LFH_SIGNATURE: u32 = 0x4034b50;
+pub const MR_SIGNATURE: u32 = 0x403524D;
 #[allow(dead_code)]
 pub const LFH_LENGTH: usize = 26;
 

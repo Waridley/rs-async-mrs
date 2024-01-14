@@ -8,8 +8,8 @@
 //! ```no_run
 //! # #[cfg(feature = "deflate")]
 //! # {
-//! # use async_zip::{Compression, ZipEntryBuilder, base::write::ZipFileWriter};
-//! # use async_zip::error::ZipError;
+//! # use async_mrs::{Compression, ZipEntryBuilder, base::write::ZipFileWriter};
+//! # use async_mrs::error::ZipError;
 //! #
 //! # async fn run() -> Result<(), ZipError> {
 //! let mut writer = ZipFileWriter::new(Vec::<u8>::new());
@@ -27,9 +27,9 @@
 //! ```no_run
 //! # #[cfg(feature = "deflate")]
 //! # {
-//! # use async_zip::{Compression, ZipEntryBuilder, base::write::ZipFileWriter};
+//! # use async_mrs::{Compression, ZipEntryBuilder, base::write::ZipFileWriter};
 //! # use std::io::Cursor;
-//! # use async_zip::error::ZipError;
+//! # use async_mrs::error::ZipError;
 //! # use futures_lite::io::AsyncWriteExt;
 //! # use tokio_util::compat::TokioAsyncWriteCompatExt;
 //! #

@@ -33,7 +33,7 @@ impl ZipFileBuilder {
     ///
     /// This is equivalent to:
     /// ```
-    /// # use async_zip::{ZipFile, ZipFileBuilder};
+    /// # use async_mrs::{ZipFile, ZipFileBuilder};
     /// #
     /// # let builder = ZipFileBuilder::new();
     /// let file: ZipFile = builder.into();

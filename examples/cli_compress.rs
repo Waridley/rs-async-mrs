@@ -14,8 +14,8 @@ async fn main() {
 #[cfg(features = "deflate")]
 mod inner {
 
-    use async_zip::base::write::ZipFileWriter;
-    use async_zip::{Compression, ZipEntryBuilder};
+    use async_mrs::base::write::ZipFileWriter;
+    use async_mrs::{Compression, ZipEntryBuilder};
 
     use std::path::{Path, PathBuf};
 

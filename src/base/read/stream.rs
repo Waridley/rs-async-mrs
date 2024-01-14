@@ -30,8 +30,8 @@
 //! # Example
 //! ```no_run
 //! # use futures_lite::io::Cursor;
-//! # use async_zip::error::Result;
-//! # use async_zip::base::read::stream::ZipFileReader;
+//! # use async_mrs::error::Result;
+//! # use async_mrs::base::read::stream::ZipFileReader;
 //! #
 //! # async fn run() -> Result<()> {
 //! let mut zip = ZipFileReader::new(Cursor::new([0; 0]));

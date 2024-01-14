@@ -15,8 +15,8 @@
 //!
 //! ### Concurrent Example
 //! ```no_run
-//! # use async_zip::base::read::mem::ZipFileReader;
-//! # use async_zip::error::Result;
+//! # use async_mrs::base::read::mem::ZipFileReader;
+//! # use async_mrs::error::Result;
 //! # use futures_lite::io::AsyncReadExt;
 //! #
 //! async fn run() -> Result<()> {
@@ -41,8 +41,8 @@
 //!
 //! ### Parallel Example
 //! ```no_run
-//! # use async_zip::base::read::mem::ZipFileReader;
-//! # use async_zip::error::Result;
+//! # use async_mrs::base::read::mem::ZipFileReader;
+//! # use async_mrs::error::Result;
 //! # use futures_lite::io::AsyncReadExt;
 //! #
 //! async fn run() -> Result<()> {

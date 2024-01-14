@@ -102,7 +102,7 @@ impl ZipEntryBuilder {
     ///
     /// This is equivalent to:
     /// ```
-    /// # use async_zip::{ZipEntry, ZipEntryBuilder, Compression};
+    /// # use async_mrs::{ZipEntry, ZipEntryBuilder, Compression};
     /// #
     /// # let builder = ZipEntryBuilder::new(String::from("foo.bar").into(), Compression::Stored);
     /// let entry: ZipEntry = builder.into();
