@@ -1,7 +1,7 @@
 // Copyright (c) 2023 Harry [Majored] [hello@majored.pw]
 // MIT License (https://github.com/Majored/rs-async-zip/blob/main/LICENSE)
 
-use tokio_util::compat::TokioAsyncReadCompatExt;
+// use tokio_util::compat::TokioAsyncReadCompatExt;
 
 mod common;
 
