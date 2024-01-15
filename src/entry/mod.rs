@@ -199,7 +199,7 @@ impl StoredZipEntry {
         } else {
             LFH_SIGNATURE
         };
-        if signature != expected {
+        if !(signature == MR_SIGNATURE || signature == LFH_SIGNATURE) {
             return Err(ZipError::UnexpectedHeaderError(signature, expected))
         }
 
